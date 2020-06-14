@@ -1,0 +1,721 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.3">
+    
+    
+      
+        <title>pthread - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6e35a1a6.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pthread" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header-nav__button md-logo" aria-label="My Docs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            My Docs
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              pthread
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Study Note Index File" class="md-nav__link">
+      Study Note Index File
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Studyfiles
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Studyfiles" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Studyfiles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../markdownStudy/" title="MarkDown Study" class="md-nav__link">
+      MarkDown Study
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../test/" title="Math" class="md-nav__link">
+      Math
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      TCP IP
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="TCP IP" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        TCP IP
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../TCP-IP/IndexFile/" title="TCP/IP index file" class="md-nav__link">
+      TCP/IP index file
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+    
+    <label class="md-nav__link" for="nav-2-4">
+      WindowsAPI
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="WindowsAPI" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        WindowsAPI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../WindowsAPI/GetDeviceCaps/" title="GetDeviceCaps(HDC hDC, int iIndex)" class="md-nav__link">
+      GetDeviceCaps(HDC hDC, int iIndex)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../WindowsAPI/IndexFile/" title="Windows API Note index file" class="md-nav__link">
+      Windows API Note index file
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../WindowsAPI/Menu/" title="Menu" class="md-nav__link">
+      Menu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-5" type="checkbox" id="nav-2-5">
+    
+    <label class="md-nav__link" for="nav-2-5">
+      C
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="C" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        C
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../c/" title="C 笔记" class="md-nav__link">
+      C 笔记
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../c/c_variable_list/" title="C 的可变参数" class="md-nav__link">
+      C 的可变参数
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-6" type="checkbox" id="nav-2-6">
+    
+    <label class="md-nav__link" for="nav-2-6">
+      Math
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Math" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Math
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../math/math/" title="数学笔记" class="md-nav__link">
+      数学笔记
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../math/mathematical_formula/" title="数学公式大全" class="md-nav__link">
+      数学公式大全
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-7" type="checkbox" id="nav-2-7" checked>
+    
+    <label class="md-nav__link" for="nav-2-7">
+      Thread
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Thread" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-7">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Thread
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="pthread" class="md-nav__link md-nav__link--active">
+      pthread
+    </a>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="pthread">pthread<a class="headerlink" href="#pthread" title="Permanent link">&para;</a></h1>
+<!-- vim-markdown-toc Marked -->
+
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#头文件">头文件</a></li>
+<li><a href="#线程变量和相关函数">线程变量和相关函数</a><ul>
+<li><a href="#声明一个线程变量(线程id)">声明一个线程变量(线程ID)</a></li>
+<li><a href="#获取线程id">获取线程ID</a></li>
+<li><a href="#比较是否为同一线程">比较是否为同一线程</a></li>
+</ul>
+</li>
+<li><a href="#线程函数声明模板">线程函数声明模板</a></li>
+<li><a href="#创建一个线程">创建一个线程</a><ul>
+<li><a href="#example">example</a></li>
+</ul>
+</li>
+<li><a href="#等待线程完成">等待线程完成</a></li>
+<li><a href="#线程假共享">线程假共享</a></li>
+<li><a href="#互斥量">互斥量</a>
+        * <a href="#存在意义">存在意义</a></li>
+<li><a href="#线程类别">线程类别</a></li>
+<li><a href="#原子操作">原子操作</a>
+        * <a href="#定义">定义</a></li>
+</ul>
+<!-- vim-markdown-toc -->
+
+<h1 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>本文档主是pthread的基础使用方法</p>
+<h1 id="_2">头文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p><div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;pthread&gt;  </span><span class="cp"></span>
+</code></pre></div>
+ &nbsp;</p>
+<h1 id="_3">线程变量和相关函数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<h2 id="id">声明一个线程变量(线程ID)<a class="headerlink" href="#id" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">pthread_t</span> <span class="n">th</span><span class="p">;</span>   <span class="c1">// 声明一个线程变量(线程ID)</span>
+</code></pre></div>
+
+<h2 id="id_1">获取线程ID<a class="headerlink" href="#id_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">pthread_t</span> <span class="nf">pthread_self</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <span class="c1">// 获取当前线程ID</span>
+</code></pre></div>
+
+<h2 id="_4">比较是否为同一线程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="nf">pthread_equal</span><span class="p">(</span><span class="n">pthread_t</span> <span class="n">tid1</span><span class="p">,</span> <span class="n">pthread_t</span> <span class="n">tid2</span><span class="p">);</span> <span class="c1">// 比较tid1和tid2是否为同一个线程</span>
+</code></pre></div>
+&nbsp;</p>
+<h1 id="_5">线程函数声明模板<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p><div class="highlight"><pre><span></span><code> <span class="kt">void</span><span class="o">*</span> <span class="nf">myfunc</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span> 
+</code></pre></div>
+&nbsp;</p>
+<h1 id="_6">创建一个线程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>thread</code></td>
+<td>线程变量</td>
+</tr>
+<tr>
+<td><code>attr</code></td>
+<td>未知</td>
+</tr>
+<tr>
+<td><code>start_routine</code></td>
+<td>线程函数</td>
+</tr>
+<tr>
+<td><code>arg</code></td>
+<td>线程传入参数</td>
+</tr>
+<tr>
+<td><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> <span class="k">const</span> <span class="n">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
+</code></pre></div></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code><span class="k">struct</span> 
+<span class="p">{</span>
+    <span class="cm">/* add your arg list in this place */</span>
+<span class="p">}</span><span class="n">MY_ARG</span><span class="p">;</span>
+
+<span class="n">pthread_t</span> <span class="n">th</span><span class="p">;</span>
+<span class="n">MY_ARG</span> <span class="n">arg</span><span class="p">;</span>
+
+<span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">th</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">myfunc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arg</span><span class="p">);</span>  <span class="c1">//创建一个线程 并运行</span>
+</code></pre></div>
+&nbsp;</p>
+<h1 id="_7">等待线程完成<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code><span class="n">pthread_join</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>  <span class="c1">// 等待该线程完成</span>
+</code></pre></div>
+
+<blockquote>
+<p>该操用与<code>可结合的线程</code> <a href="#线程类别">下部分有讲</a>
+&nbsp;</p>
+</blockquote>
+<h1 id="_8">线程假共享<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h1>
+<blockquote>
+<h4 id="fale-share">线程假共享 又称 Fale Share<a class="headerlink" href="#fale-share" title="Permanent link">&para;</a></h4>
+<p>&emsp; 由于CPU的多核操作，一个线程由一个核心完成，每一个核心都有独自的缓存区( <code>cahe</code> )，CPU会拷贝一部分内存到 <code>cahe</code> 中当修改完值后，需要和原内存比较，若该段内存部分修改则需先重新拷贝到 <code>cahe</code> 中在将 <code>cahe</code> 中的值拷贝到内存中<br />
+&emsp; 当两个线程使用内存块相近时， 一个CPU核心将拷贝的内容包含另一个CPU核心的内容，导致内存反复拷贝内存到 <code>cahe</code> 中，消耗时间。
+&nbsp;</p>
+</blockquote>
+<h1 id="_9">互斥量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h1>
+<h3 id="_10">存在意义<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>&emsp; 当两个线程使用同一个<code>资源</code>时，由于使用非<a href="#原子操作">原子操作</a>，导致出现意料之外的结果，使用互斥量可以避免此问题。  </p>
+<p>&emsp; 注意：互斥量只锁代码，不锁变量</p>
+</blockquote>
+<h1 id="_11">线程类别<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h1>
+<p>可结合的线程 <code>joinable</code><br />
+  分离的线程   <code>detached</code>  </p>
+<h1 id="_12">原子操作<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h1>
+<h3 id="_13">定义<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>&emsp; 如果这个操作所处的层(layer)的更高层不能发现其内部实现与结构，那么这个操作是一个原子(atomic)操作。<br />
+&emsp; 原子操作可以是一个步骤，也可以是多个操作步骤，但是其顺序不可以被打乱，也不可以被切割而只执行其中的一部分。
+将整个操作视作一个整体是原子性的核心特征</p>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../math/mathematical_formula/" title="数学公式大全" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                数学公式大全
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.c03f0417.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+      
+        <script src="../../../js/umlconvert.js"></script>
+      
+    
+  </body>
+</html>
